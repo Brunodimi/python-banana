@@ -1,4 +1,6 @@
 from time import sleep
+from connectDB import (cursor,conexao)
+from Crud import read
 
 def menu_interacao():
     igual = "$"*10
@@ -10,36 +12,34 @@ def menu_interacao():
             print("*")
         
         sairsistema = int(input("voce deseja sair do sistema?: 1 para sim e 2 para nao: "))
-        
+        criarTabela = int(input("deseja criar uma tabela? 1 para sim e 2 para nao: "))
+
+        if criarTabela == 1:
+            sistema = False
+            comando_sql = f"""
+            CREATE TABLE IF NOT EXISTS bruninho(
+            TEXT NOT NULL,
+            INTEGER
+            )"""
+            conexao.execute(comando_sql)
+            conexao.commit()
+            
+        else:
+            print("adios")
+
         if sairsistema == 1:
             sistema = False
             print("voce saiu do sistema")
 
         elif sairsistema == 2:
             vertabela = int(input("gostari de verificar se existem as tabelas 1 para sim e 2 para nao: "))
-            
-        elif vertabela == 1:
-            print("nenhuma tabela existente")
-            sair = int(input("deseja sair do sistema?: 1 par sim e 2 para nao: "))
+
+                
         
         elif vertabela == 2:
-            sistema = False
-        
-        elif sair == 1:
-            sistema = False
-            print("voce saiu do sistema")
-        
-        elif sair == 2:
-            sistema = True        
+            read()
+            sistema = False  
         
         else:
-             print('numero digitado invalido')
+            print('numero digitado invalido')
         
-            
-           
-            
-       
-        
-        
-    pass
-
