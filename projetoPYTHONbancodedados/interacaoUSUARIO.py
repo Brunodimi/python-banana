@@ -1,6 +1,6 @@
 from time import sleep
 from connectDB import (cursor,conexao)
-from Crud import read
+from Crud import read,create,update,delete
 
 def menu_interacao():
     igual = "$"*10
@@ -11,35 +11,71 @@ def menu_interacao():
             sleep(0.1)
             print("*")
         
-        sairsistema = int(input("voce deseja sair do sistema?: 1 para sim e 2 para nao: "))
-        criarTabela = int(input("deseja criar uma tabela? 1 para sim e 2 para nao: "))
+        
+        sistema = int(input("voce deseja sair do sistema?: 1 para sim e 2 para nao: "))
 
-        if criarTabela == 1:
+        if sistema == 1:
             sistema = False
-            comando_sql = f"""
-            CREATE TABLE IF NOT EXISTS bruninho(
-            TEXT NOT NULL,
-            INTEGER
-            )"""
-            conexao.execute(comando_sql)
-            conexao.commit()
+            break
             
-        else:
-            print("adios")
-
-        if sairsistema == 1:
-            sistema = False
-            print("voce saiu do sistema")
-
-        elif sairsistema == 2:
-            vertabela = int(input("gostari de verificar se existem as tabelas 1 para sim e 2 para nao: "))
-
+        elif sistema == 2:
+            sistema = True
                 
-        
-        elif vertabela == 2:
-            read()
-            sistema = False  
-        
-        else:
-            print('numero digitado invalido')
-        
+            sistema1 = True
+            while sistema1 != False:
+
+                vertabela = int(input("Gostaria de verificar se existem tabelas? 1 para sim e 2 para não: "))
+
+                if vertabela == 1:
+                    read()
+
+                create1 = int(input("Gostaria de criar uma tabela? 1 para sim e 2 para não: "))
+
+                if create1 == 1:
+                    create()
+
+                elif create1 == 2:
+                    deletar = int(input("Gostaria de deletar a tabela? 1 para sim e 2 para não: "))
+
+                    if deletar == 1:
+                        delete()
+                        break
+
+                    elif deletar == 2:
+                        add = int(input("Gostaria de adicionar algo na tabela? 1 para sim e 2 para não: "))
+
+                        if add == 1:
+                            update()
+                            break
+
+                        elif add == 2:
+                            sistema1 = False
+
+                        else:
+                            print("Número digitado inválido")
+
+                    else:
+                        print("Número digitado inválido")
+
+                else:
+                    print("Número digitado inválido")
+
+
+                b = int(input("Deseja interagir com o banco novamente? 1 = sim / 2 = não: "))
+
+                if b == 1:
+                    sistema1 = True
+
+                elif b == 2:
+                    sistema1 = False
+
+                else:
+                    print("Número digitado inválido")
+
+
+    
+
+    for animacao in range(10):
+                sleep(0.1)
+                print("*")
+    print("Voce saiu do sistema")
